@@ -11,18 +11,14 @@ var List = require('./List.js').List;
 var Customer = require('./Customer.js').Customer;
 
 function createArr(file) {
-  var arr;
-  fs.readFile(file, 'utf8', function (err, contents) {
-    if (err) {
-      return console.log(err);
+  var arr = fs.readFileSync(file).toString().split("\n");
+
+  // Node gets an extra empty line? 
+  arr.splice(arr.length-1,1);
+
+  for (var i = 0; i < arr.length; ++i) {
+    arr[i] = arr[i].trim();
     }
-console.log('Assigning arr');
-    arr = contents;
-    for (var i = 0; i < arr.length; ++i) {
-      arr[i] = arr[i].trim();
-console.log('Dealing with ' + arr[1]);
-    }
-  });  
   return arr;
 }
 
@@ -53,24 +49,20 @@ function checkOut(name, movie, movieList, customerList) {
 var movies = createArr("films.txt");
 var movieList = new List();
 var customers = new List();
-for (var i = 0; i < movieList.length; ++i) {
+for (var i = 0; i < movies.length; ++i) {
  movieList.append(movies[i]);
 }
-console.log("Available movies: \n");
 displayList(movieList);
 
 rl.question("Enter your name: ", function(inputValue) {
   name = inputValue;
-  rl.close();
+  rl.question("What movie would you like? ", function(inputValue) {
+    movie = inputValue;
+    checkOut(name, movie, movieList, customers);
+    console.log("\nCustomer Rentals: \n");
+    displayList(customers);
+    console.log("\nMovies Now Available\n");
+    displayList(movieList);
+    rl.close();
+  });
 });
-
-rl.question("What movie would you like? ", function(inputValue) {
-  movie = inputValue;
-  rl.close();
-});
-
-checkOut(name, movie, movieList, customers);
-console.log("\nCustomer Rentals: \n");
-displayList(customers);
-console.log("\nMovies Now Available\n");
-displayList(movieList);
