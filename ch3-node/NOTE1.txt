@@ -1,0 +1,13 @@
+Note that find() and remove() are swapped in the text
+
+Also in List.js length is defined twice in the constructor
+
+p.42 one part of test code uses print; the other uses console.log
+
+p.44 file-reading code isn't properly rendered 
+
+p.45 More code not showing as code (var customers. . )
+
+p. 46 what is all that red text doing?
+
+
