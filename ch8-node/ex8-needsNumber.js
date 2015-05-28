@@ -17,6 +17,8 @@ var inputPhase = true;
 rl.setPrompt("Enter a name ('finished' when done):  ");
 rl.prompt();
 rl.on('line', function(line) {
+
+  // First part: check if the user is finished:
   // All done with both loops
   if (!inputPhase && line === 'quit')
     rl.close();
@@ -26,7 +28,7 @@ rl.on('line', function(line) {
     name = "";
   } 
 
-  // Three possibilities here:
+  // Second part, process input value.  Three possibilities here:
   // 1. First entry in input loop
   if (nameInput && inputPhase )
     name = line;
@@ -42,7 +44,7 @@ rl.on('line', function(line) {
     }
   } 
 
-  // Set proper prompt 
+  // Third part: Set proper prompt for next iteration
   if (nameInput && inputPhase)
     rl.setPrompt('Enter a number: ');
   else if (!nameInput && inputPhase)
@@ -50,8 +52,8 @@ rl.on('line', function(line) {
   else
     rl.setPrompt("Enter a name to look up ('quit' when done): ");
 
-  // Toggle cycle (on inputPhase == true) and go again
-  nameInput = (nameInput && inputPhase)?false:true;
+  // Toggle phase cycle (on inputPhase == true) and go again
+  nameInput = (inputPhase && nameInput)?false:true;
   rl.prompt();
 }).on('close',function(){
   process.exit(0);
