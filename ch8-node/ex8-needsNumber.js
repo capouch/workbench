@@ -18,7 +18,7 @@ rl.setPrompt("Enter a name ('finished' when done):  ");
 rl.prompt();
 rl.on('line', function(line) {
   // All done with both loops
-  if (inputPhase == false && line === 'quit')
+  if (!inputPhase && line === 'quit')
     rl.close();
   // All done with input, now do output loop
   if (nameInput  && line === 'finished' && inputPhase) {
