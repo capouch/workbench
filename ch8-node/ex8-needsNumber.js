@@ -10,7 +10,7 @@ var HashTable = require('./BetterHash2.js').HashTable;
 
 var pnumbers = new HashTable();
 var name, number;
-var cycle = 1;
+var nameInput = true
 var inputPhase = true;
 
 // Node's ascync I/O vastly complicates this code!!
@@ -21,18 +21,18 @@ rl.on('line', function(line) {
   if (inputPhase == false && line === 'quit')
     rl.close();
   // All done with input, now do output loop
-  if (cycle == 1 && line === 'finished' && inputPhase) {
+  if (nameInput  && line === 'finished' && inputPhase) {
     inputPhase = false;
     name = "";
   } 
 
   // Three possibilities here:
   // 1. First entry in input loop
-  if (cycle == 1 && inputPhase )
+  if (nameInput && inputPhase )
     name = line;
   else {
     // 2. Second entry in input loop
-    if (cycle == 0 && inputPhase) {
+    if (!nameInput  && inputPhase) {
     number = line;
     pnumbers.put(name,number);
   } else {
@@ -43,15 +43,15 @@ rl.on('line', function(line) {
   } 
 
   // Set proper prompt 
-  if (cycle == 1 && inputPhase)
+  if (nameInput && inputPhase)
     rl.setPrompt('Enter a number: ');
-  else if (cycle == 0 && inputPhase)
+  else if (!nameInput && inputPhase)
     rl.setPrompt("Enter a name ('finished' when done): ");
   else
     rl.setPrompt("Enter a name to look up ('quit' when done): ");
 
   // Toggle cycle (on inputPhase == true) and go again
-  cycle = (cycle == 1 && inputPhase)?0:1;
+  nameInput = (nameInput && inputPhase)?false:true;
   rl.prompt();
 }).on('close',function(){
   process.exit(0);
