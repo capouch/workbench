@@ -1,9 +1,6 @@
 // This one needs to be named in the book text!!
 var readline = require('readline');
 
-
-var readline = require('readline');
-
 var rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
