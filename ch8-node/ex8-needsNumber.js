@@ -21,7 +21,7 @@ rl.on('line', function(line) {
   if (!inputPhase && line === 'quit')
     rl.close();
   // All done with input, now do output loop
-  if (nameInput  && line === 'finished' && inputPhase) {
+  if (inputPhase && nameInput  && line === 'finished') {
     inputPhase = false;
     name = "";
   } 
