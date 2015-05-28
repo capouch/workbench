@@ -1,53 +1,62 @@
 // This one needs to be named in the book text!!
 var readline = require('readline');
 
-// Here is the solution to the input loop problem
-//var rl = readline.createInterface(process.stdin, process.stdout);
-//rl.setPrompt('guess> ');
-//rl.prompt();
-//rl.on('line', function(line) {
-//    if (line === "right") rl.close();
-//    rl.prompt();
-//}).on('close',function(){
-//    process.exit(0);
-//});
 
 var readline = require('readline');
-var fs = require('fs');
 
 var rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
 
-
 var HashTable = require('./BetterHash2.js').HashTable;
 
 var pnumbers = new HashTable();
 var name, number;
+var cycle = 1;
+var inputMode = true;
 
-while (name != "finished") {
-  rl.question("Enter a name (or 'finished' when done): ", function(inputValue) {
-    name = inputValue;
-    rl.question("Enter a number: ", function(inputValue) {
-      number = inputValue;
-      pnumbers.put(name, number);
-      }); 
-  }); 
-  if(name == "finished") {
-    break;
-  }
-}
-rl.close();
+// Node's ascync I/O vastly complicates this code!!
+rl.setPrompt("Enter a name ('finished' when done):  ");
+rl.prompt();
+rl.on('line', function(line) {
+  // All done with both loops
+  if (inputMode == false && line === 'quit')
+    rl.close();
+  // All done with input, now do output loop
+  if (cycle == 1 && line === 'finished' && inputMode) {
+    inputMode = false;
+    name = "";
+  } 
+  // Three possibilities here:
 
-name = "";
-while (name != "quit") {
-  rl.question("Name for number (Enter quit to stop): ", function(inputValue) {
-    name = readline();
-  });
-  if (name == "quit") {
-    break;
-  }
+  // First entry in input loop
+  if (cycle == 1 && inputMode )
+    name = line;
+  else {
+    // Second entry in input loop
+    if (cycle == 0 && inputMode) {
+    number = line;
+    pnumbers.put(name,number);
+  } else {
+    // Output phase
+    name = line;
     console.log(name + "'s number is " + pnumbers.get(name));
-}h
-rl.close();
+    }
+  } 
+
+  // Set proper prompt 
+  if (cycle == 1 && inputMode)
+    rl.setPrompt('Enter a number: ');
+  else if (cycle == 0 && inputMode)
+    rl.setPrompt("Enter a name ('finished' when done): ");
+  else
+    rl.setPrompt("Enter a name to look up ('quit' when done): ");
+
+  // Toggle cycle (on inputMode == true) and go again
+  cycle = (cycle == 1 && inputMode)?0:1;
+  rl.prompt();
+}).on('close',function(){
+  process.exit(0);
+});
+
