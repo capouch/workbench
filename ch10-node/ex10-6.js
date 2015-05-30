@@ -46,6 +46,7 @@ rl.prompt();
 rl.on('line', function(line) {
   if (!valueEntryPhase && line === 'n')
     rl.close();
+  // Allow anything but 'n' to continue
   else if(!valueEntryPhase && line != 'n') {
     valueEntryPhase = true;
     rl.setPrompt("\nEnter a grade: ");
