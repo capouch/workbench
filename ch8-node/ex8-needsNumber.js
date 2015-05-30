@@ -59,7 +59,7 @@ rl.on('line', function(line) {
   else
     rl.setPrompt("Enter a name to look up ('quit' when done): ");
 
-  // Toggle phase cycle (on inputPhase == true) and go again
+  // Toggle name/number cycle (when inputPhase == true) and go again
   nameInput = (inputPhase && nameInput)?false:true;
 
   // Next iteration
