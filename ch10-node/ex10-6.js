@@ -53,6 +53,7 @@ rl.on('line', function(line) {
     rl.prompt();
     }
   else {
+    // User wants to look up a grade value
     var g = parseInt(line);
     var aGrade = gradedistro.find(g);
     if (aGrade === null) {
