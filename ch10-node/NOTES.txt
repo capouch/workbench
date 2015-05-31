@@ -1,3 +1,5 @@
 getSmallest isn't presented in book
 Also look at newtrees to see if there was a bug caught that I can't
 remember.
+
+Testing commit here with my new atom plugin.
