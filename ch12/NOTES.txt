@@ -1,0 +1,15 @@
+Author is really sloppy with shellSort (note cap) and shellSort[1|2]
+
+Also the procession of carray, carray1, etc.?
+
+Do we want that?
+
+Mergesort in its two minimally different variants is wasteful of the 
+reader's time.
+
+Final mergeSort (after integration with CArray) is not numbered, nor
+properly formatted in the text.
+
+Note I also left in (but commented out) some class debugging code
+
+Node version does NOT like having swap in the CArray object instead of the various sorting objects.
