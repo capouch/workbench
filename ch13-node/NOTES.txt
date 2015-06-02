@@ -1,0 +1,13 @@
+What's the ===Sequential Search business p. 192?
+
+dispArray and sequentialSearch aren't "code" font.
+
+In this chapter (maybe for the first time?) his various iterations
+of the code live in "example-numbered" files.
+
+Example code on p. 200 doesn't have an "example number"
+
+Exs 13-14 and 13-15 are the same, just he includes the kitchen
+sink in 15, which files are already in their own files.  
+
+So 13-15 is pretty much useless.
